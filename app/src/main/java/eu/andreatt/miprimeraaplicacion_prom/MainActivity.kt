@@ -23,11 +23,20 @@ class MainActivity : AppCompatActivity() {
 
     private fun initUi() {
         initView()
+        initListners()
+    }
+
+    private fun initListners() {
+        btnAddTask.setOnClickListener { addTask() }
+    }
+
+    private fun addTask() {
+        val taskToAdd:String = etTask.text.toString()
     }
 
     private fun initView() {
         btnAddTask= findViewById(R.id.btnAddTask)
         etTask= findViewById(R.id.etTask)
-        rvATask= findViewById(R.id.rvTask)
+        rvTask= findViewById(R.id.rvTask)
     }
 }
