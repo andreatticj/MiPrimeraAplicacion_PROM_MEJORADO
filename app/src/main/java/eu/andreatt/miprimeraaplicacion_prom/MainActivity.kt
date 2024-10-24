@@ -1,20 +1,18 @@
 package eu.andreatt.miprimeraaplicacion_prom
 
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import eu.andreatt.miprimeraaplicacion_prom.TaskApplication.Companion.prefs
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var btnAddTask: Button
     lateinit var etTask: EditText
-    lateinit var rvTask: RecyclerView
+    lateinit var rvTasks: RecyclerView
 
     lateinit var adapter: TaskAdapter
 
@@ -28,31 +26,41 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initUi() {
-        initView()
-        initListners()
+        initVariables()
+        initListeners()
         initRecyclerView()
     }
 
     private fun initRecyclerView() {
-        rvTask.layoutManager = LinearLayoutManager(this)
-        adapter = TaskAdapter(tasks)
-        rvTask.adapter = adapter
+        tasks = prefs.getTasks()
+        rvTasks.layoutManager = LinearLayoutManager(this)
+        adapter = TaskAdapter(tasks) {deleteTask(it)}
+        rvTasks.adapter = adapter
+
     }
 
-    private fun initListners() {
-        btnAddTask.setOnClickListener { addTask() }
+    private fun deleteTask(position: Int) {
+        tasks.removeAt(position)
+        adapter.notifyDataSetChanged()
+        prefs.saveTasks(tasks)
+    }
+
+
+    private fun initVariables() {
+        etTask = findViewById(R.id.etTask)
+        btnAddTask = findViewById(R.id.btnAddTask)
+        rvTasks = findViewById(R.id.rvTasks)
+    }
+
+    private fun initListeners() {
+        btnAddTask.setOnClickListener {addTask()}
     }
 
     private fun addTask() {
-        val taskToAdd:String = etTask.text.toString()
-        tasks.add(taskToAdd)
+        val newTask = etTask.text.toString()
+        tasks.add(newTask)
+        prefs.saveTasks(tasks)
         adapter.notifyDataSetChanged()
         etTask.setText("")
-    }
-
-    private fun initView() {
-        btnAddTask= findViewById(R.id.btnAddTask)
-        etTask= findViewById(R.id.etTask)
-        rvTask= findViewById(R.id.rvTask)
     }
 }
