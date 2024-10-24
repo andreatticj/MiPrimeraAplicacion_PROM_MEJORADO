@@ -15,6 +15,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var etTask: EditText
     lateinit var rvTask: RecyclerView
 
+    var tasks = mutableListOf<String>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -32,6 +34,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun addTask() {
         val taskToAdd:String = etTask.text.toString()
+        tasks.add(taskToAdd)
     }
 
     private fun initView() {
