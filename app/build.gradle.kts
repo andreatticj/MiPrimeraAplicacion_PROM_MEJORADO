@@ -47,6 +47,8 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }
-tasks.withType<org.jetbrains.dokka.gradle.DokkaTask>().configureEach {
-    outputDirectory.set(layout.buildDirectory.dir("docs/javadoc")) // Usa layout para evitar deprecaciones
+
+// Configura Dokka para generar el formato Javadoc
+tasks.dokkaJavadoc {
+    outputDirectory.set(buildDir.resolve("docs/javadoc"))
 }
