@@ -1,6 +1,6 @@
 # MiPrimeraAplicacion_PROM
 
-MiPrimeraAplicacion_PROM es una aplicación Android sencilla que permite gestionar una lista de tareas. Los usuarios pueden añadir nuevas tareas, marcar tareas como completadas y almacenarlas de forma persistente utilizando `SharedPreferences`.
+MiPrimeraAplicacion_PROM es una aplicación Android sencilla que permite gestionar una lista de tareas. Los usuarios pueden añadir nuevas tareas, marcar tareas como completadas, editarlas y almacenarlas de forma persistente utilizando `SharedPreferences`.
 
 ## Características
 
