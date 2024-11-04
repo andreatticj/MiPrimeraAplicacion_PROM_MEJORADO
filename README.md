@@ -28,7 +28,7 @@ El proyecto está dividido en las siguientes clases principales:
 2. Abre el proyecto en Android Studio.
 3. Ejecuta la aplicación en un dispositivo o emulador Android.
 
-##Uso
+## Uso
 
     Abre la aplicación en tu dispositivo Android.
     Escribe una tarea en el campo de entrada y presiona "Añadir".
