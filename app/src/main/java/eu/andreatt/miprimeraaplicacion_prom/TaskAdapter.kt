@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import eu.andreatt.miprimeraaplicacion_prom.TaskApplication.Companion.prefs
 
 /**
  * TaskAdapter es el adaptador para mostrar las tareas en un RecyclerView.
@@ -52,30 +53,21 @@ class TaskAdapter(
     override fun getItemCount(): Int = tasks.size
 
     /**
-     * Elimina una tarea de la lista y actualiza el RecyclerView.
+     * Elimina una tarea de la lista y de la base de datos.
      *
      * @param position La posición de la tarea a eliminar.
      */
     fun removeTask(position: Int) {
-        tasks.removeAt(position)
-        notifyItemRemoved(position)
+        val taskToDelete = tasks[position]
+        tasks.removeAt(position) // Elimina de la lista
+        prefs.deleteTask(taskToDelete) // Elimina de la base de datos
+        notifyItemRemoved(position) // Actualiza el RecyclerView
     }
 
-    /**
-     * TaskViewHolder representa una vista de tarea individual en el RecyclerView.
-     *
-     * @param itemView Vista de cada tarea en el RecyclerView.
-     */
     inner class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val taskTextView: TextView = itemView.findViewById(R.id.tvTask)
         private val taskDoneIcon: ImageView = itemView.findViewById(R.id.ivTaskDone)
 
-        /**
-         * Enlaza el texto de una tarea a la vista de texto correspondiente y configura el icono de
-         * verificación para eliminar la tarea al hacer clic en él.
-         *
-         * @param task Tarea que se va a mostrar.
-         */
         fun bind(task: String) {
             taskTextView.text = task
 
@@ -83,7 +75,7 @@ class TaskAdapter(
             taskDoneIcon.setOnClickListener {
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
-                    removeTask(position)
+                    removeTask(position) // Llama a removeTask para eliminar de la lista y la base de datos
                 }
             }
         }

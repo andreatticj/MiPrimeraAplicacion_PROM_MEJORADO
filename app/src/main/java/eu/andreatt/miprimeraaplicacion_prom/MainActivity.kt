@@ -100,10 +100,13 @@ class MainActivity : AppCompatActivity() {
      *
      * @param task La tarea a eliminar.
      */
-    private fun deleteTask(task: String) {
-        deleteTask(task)
-        tasks.remove(task)
-        adapter.notifyDataSetChanged()
+    private fun deletTask(task: String) {
+        prefs.deleteTask(task)
+        val position = tasks.indexOf(task)
+        if (position >= 0) {
+            tasks.removeAt(position)
+            adapter.notifyItemRemoved(position) // Notificar solo el ítem eliminado
+        }
 
         // Reproducir sonido de eliminación
         if (mediaPlayer.isPlaying) {
@@ -112,6 +115,7 @@ class MainActivity : AppCompatActivity() {
         }
         mediaPlayer.start()
     }
+
 
     /**
      * Configura la funcionalidad de deslizamiento en el RecyclerView para eliminar tareas.
@@ -132,7 +136,7 @@ class MainActivity : AppCompatActivity() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewHolder.adapterPosition
                 val task = tasks[position]
-                deleteTask(task)
+                deletTask(task)
             }
 
             override fun onChildDraw(

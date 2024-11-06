@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
 
 /**
  * Clase que administra la base de datos de tareas utilizando SQLite.
@@ -104,8 +105,10 @@ class Preferences(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, n
         val values = ContentValues().apply {
             put(COLUMN_TASK, newTask)
         }
-        db.update(TABLE_NAME, values, "$COLUMN_TASK = ?", arrayOf(oldTask))
+        val rowsUpdated = db.update(TABLE_NAME, values, "$COLUMN_TASK = ?", arrayOf(oldTask))
+        Log.d("Preferences", "Rows updated: $rowsUpdated") // Agregar log para verificar
         db.close()
     }
+
 
 }
