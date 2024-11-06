@@ -3,6 +3,7 @@ package eu.andreatt.miprimeraaplicacion_prom
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
@@ -51,20 +52,40 @@ class TaskAdapter(
     override fun getItemCount(): Int = tasks.size
 
     /**
+     * Elimina una tarea de la lista y actualiza el RecyclerView.
+     *
+     * @param position La posición de la tarea a eliminar.
+     */
+    fun removeTask(position: Int) {
+        tasks.removeAt(position)
+        notifyItemRemoved(position)
+    }
+
+    /**
      * TaskViewHolder representa una vista de tarea individual en el RecyclerView.
      *
      * @param itemView Vista de cada tarea en el RecyclerView.
      */
     inner class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val taskTextView: TextView = itemView.findViewById(R.id.tvTask)
+        private val taskDoneIcon: ImageView = itemView.findViewById(R.id.ivTaskDone)
 
         /**
-         * Enlaza el texto de una tarea a la vista de texto correspondiente.
+         * Enlaza el texto de una tarea a la vista de texto correspondiente y configura el icono de
+         * verificación para eliminar la tarea al hacer clic en él.
          *
          * @param task Tarea que se va a mostrar.
          */
         fun bind(task: String) {
             taskTextView.text = task
+
+            // Elimina la tarea al hacer clic en el icono de verificación
+            taskDoneIcon.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    removeTask(position)
+                }
+            }
         }
     }
 }

@@ -101,7 +101,7 @@ class MainActivity : AppCompatActivity() {
      * @param task La tarea a eliminar.
      */
     private fun deleteTask(task: String) {
-        prefs.deleteTask(task)
+        deleteTask(task)
         tasks.remove(task)
         adapter.notifyDataSetChanged()
 
