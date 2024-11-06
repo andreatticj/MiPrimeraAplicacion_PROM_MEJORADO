@@ -23,7 +23,7 @@ El proyecto está dividido en las siguientes clases principales:
 
 1. Clona el repositorio:
 
-   git clone https://github.com/andreatticj/MiPrimeraAplicacion_PROM.git
+   git clone https://github.com/andreatticj/MiPrimeraAplicacion_PROM_MEJORADO.git
 
 2. Abre el proyecto en Android Studio.
 3. Ejecuta la aplicación en un dispositivo o emulador Android.
